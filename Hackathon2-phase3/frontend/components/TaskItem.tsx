@@ -130,23 +130,23 @@ export default function TaskItem({ task, onTaskUpdated, onTaskDeleted }: TaskIte
         </div>
       )}
 
-      <div className={`group flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-2xl transition-all duration-300 ${isCompleted
-        ? 'bg-primary-50/50 border border-transparent'
-        : 'glass-panel hover:shadow-lg hover:-translate-y-1'
+      <div className={`group flex flex-col md:flex-row items-start md:items-center justify-between p-5 rounded-2xl transition-all duration-500 ${isCompleted
+        ? 'bg-neon-cyan/5 border border-neon-cyan/20'
+        : 'glass-panel hover:border-neon-cyan/20 hover:shadow-[0_0_20px_rgba(0,243,255,0.1)] hover:-translate-y-1'
         }`}>
         <div className="flex items-start md:items-center gap-4 flex-1 w-full">
           <button
             onClick={handleToggleCompletion}
             disabled={isUpdating}
             className={`flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-300 mt-1 md:mt-0 ${isCompleted
-              ? 'bg-gradient-to-br from-primary-400 to-secondary-500 border-transparent shadow-md scale-110'
-              : 'border-primary-200 hover:border-primary-400 bg-white'
+              ? 'bg-neon-cyan border-transparent shadow-[0_0_15px_rgba(0,243,255,0.6)]'
+              : 'border-white/20 hover:border-neon-cyan/50 bg-white/5'
               } ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             aria-label={isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
           >
             {isCompleted && (
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+              <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" />
               </svg>
             )}
           </button>
@@ -159,14 +159,14 @@ export default function TaskItem({ task, onTaskUpdated, onTaskDeleted }: TaskIte
               onKeyDown={handleKeyDown}
               onBlur={handleEditCancel}
               autoFocus
-              className="flex-1 input-luxury py-2 w-full"
+              className="flex-1 input-neon py-2 w-full"
               aria-label="Edit task title"
             />
           ) : (
             <div className="flex-1 flex flex-col gap-1.5 min-w-0 w-full">
               <div className="flex flex-wrap items-start gap-2 md:gap-3">
                 <h3
-                  className={`text-lg font-medium leading-snug cursor-pointer transition-colors break-words ${isCompleted ? 'line-through text-gray-400' : 'text-gray-800 hover:text-primary-600'
+                  className={`text-lg font-semibold leading-snug cursor-pointer transition-colors break-words ${isCompleted ? 'line-through text-gray-500' : 'text-white hover:text-neon-cyan'
                     }`}
                   onClick={handleEditStart}
                 >
@@ -179,36 +179,36 @@ export default function TaskItem({ task, onTaskUpdated, onTaskDeleted }: TaskIte
                   <TaskTags tags={task.tags} />
                 </div>
               )}
-              <p className="text-xs text-gray-400 font-medium">
-                {new Date(task.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+              <p className="text-xs text-gray-500 font-medium tracking-wider uppercase">
+                {new Date(task.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
               </p>
             </div>
           )}
         </div>
 
-        <div className="flex gap-2 mt-4 md:mt-0 md:ml-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 self-end md:self-auto">
+        <div className="flex gap-2 mt-4 md:mt-0 md:ml-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 self-end md:self-auto">
           {isEditing ? (
             <>
               <button
                 onClick={handleEditSave}
                 disabled={isUpdating}
-                className={`w-9 h-9 flex items-center justify-center bg-success-500 text-white rounded-lg transition-all duration-200 shadow-sm ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:bg-success-600 hover:shadow-md'
+                className={`w-9 h-9 flex items-center justify-center bg-neon-cyan text-black rounded-lg transition-all duration-300 shadow-[0_0_10px_rgba(0,243,255,0.3)] ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110 hover:shadow-[0_0_20px_rgba(0,243,255,0.5)]'
                   }`}
                 aria-label="Save changes"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                 </svg>
               </button>
               <button
                 onClick={handleEditCancel}
                 disabled={isUpdating}
-                className={`w-9 h-9 flex items-center justify-center bg-gray-100 text-gray-600 rounded-lg transition-all duration-200 ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'
+                className={`w-9 h-9 flex items-center justify-center bg-white/10 text-white rounded-lg transition-all duration-300 border border-white/10 ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/20'
                   }`}
                 aria-label="Cancel edit"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </>
@@ -216,7 +216,7 @@ export default function TaskItem({ task, onTaskUpdated, onTaskDeleted }: TaskIte
             <button
               onClick={() => !isUpdating && setShowDeleteConfirm(true)}
               disabled={isUpdating}
-              className={`w-9 h-9 rounded-lg flex items-center justify-center text-gray-400 hover:text-error-600 hover:bg-error-50 transition-all duration-200 ${isUpdating ? 'opacity-50 cursor-not-allowed' : ''
+              className={`w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 hover:text-neon-pink hover:bg-neon-pink/10 transition-all duration-300 ${isUpdating ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               aria-label="Delete task"
             >
@@ -229,26 +229,26 @@ export default function TaskItem({ task, onTaskUpdated, onTaskDeleted }: TaskIte
 
         {/* Delete Confirmation Dialog */}
         {showDeleteConfirm && (
-          <div className="fixed inset-0 bg-sea-900/20 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="glass-panel p-8 max-w-sm w-full mx-4 shadow-2xl animate-in fade-in zoom-in duration-200">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Delete Task?</h3>
-              <p className="text-gray-600 mb-8">
-                This action cannot be undone. Are you sure you want to remove this task?
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
+            <div className="glass-panel p-8 max-w-sm w-full shadow-2xl animate-in fade-in zoom-in duration-300 border-neon-pink/20">
+              <h3 className="text-xl font-bold text-white mb-2">Terminate Entity?</h3>
+              <p className="text-gray-400 mb-8 leading-relaxed">
+                This action will permanently purge this task from the neural network. Do you wish to proceed?
               </p>
-              <div className="flex justify-end gap-3">
+              <div className="flex flex-col sm:flex-row justify-end gap-3">
                 <button
                   onClick={() => setShowDeleteConfirm(false)}
                   disabled={deleteApi.loading}
-                  className="px-5 py-2.5 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors font-medium"
+                  className="px-6 py-2.5 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-semibold uppercase tracking-widest text-xs"
                 >
-                  Cancel
+                  Abort
                 </button>
                 <button
                   onClick={handleDelete}
                   disabled={deleteApi.loading}
-                  className="px-5 py-2.5 bg-gradient-to-r from-error-500 to-error-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+                  className="px-6 py-2.5 bg-neon-pink/10 border border-neon-pink/30 text-neon-pink rounded-xl hover:bg-neon-pink hover:text-white transition-all font-semibold uppercase tracking-widest text-xs shadow-[0_0_15px_rgba(255,0,127,0.2)]"
                 >
-                  {deleteApi.loading ? 'Deleting...' : 'Delete'}
+                  {deleteApi.loading ? 'Purging...' : 'Confirm Purge'}
                 </button>
               </div>
             </div>

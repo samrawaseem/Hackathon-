@@ -11,6 +11,9 @@ from contextlib import asynccontextmanager
 from typing import Optional
 import httpx
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Rate limiting setup - 100 requests per minute per IP (FR-005)
 limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
 
@@ -76,6 +79,19 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     token = credentials.credentials
     user_data = await verify_jwt_token(token)
     return user_data
+
+@app.get("/")
+@limiter.limit("100/minute")
+async def root(request: Request):
+    """
+    Root endpoint for system status visibility on Hugging Face.
+    """
+    return {
+        "status": "online",
+        "system": "Neural Core Task OS",
+        "version": "1.0.0",
+        "api_docs": "/docs"
+    }
 
 @app.get("/api/health")
 @limiter.limit("100/minute")  # Apply rate limiting

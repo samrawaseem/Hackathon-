@@ -16,9 +16,9 @@ class User(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     # Relationship to tasks - each user has many tasks
-    tasks: List["Task"] = Relationship(back_populates="user", cascade_delete=True)
+    tasks: List["Task"] = Relationship(back_populates="user", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
     # Relationship to conversations - each user has many conversations
-    conversations: List["Conversation"] = Relationship(back_populates="user", cascade_delete=True)
+    conversations: List["Conversation"] = Relationship(back_populates="user", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
 
 
 class Task(SQLModel, table=True):
@@ -39,7 +39,7 @@ class Task(SQLModel, table=True):
     user: Optional[User] = Relationship(back_populates="tasks")
 
     # Relationship to tag assignments (many-to-many through TaskTagAssignment)
-    tag_assignments: List["TaskTagAssignment"] = Relationship(back_populates="task", cascade_delete=True)
+    tag_assignments: List["TaskTagAssignment"] = Relationship(back_populates="task", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
 
     def update_timestamp(self):
         """Update the updated_at timestamp"""
@@ -61,7 +61,7 @@ class Conversation(SQLModel, table=True):
     # Relationship to user
     user: Optional[User] = Relationship(back_populates="conversations")
     # Relationship to messages
-    messages: List["Message"] = Relationship(back_populates="conversation", cascade_delete=True)
+    messages: List["Message"] = Relationship(back_populates="conversation", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
 
     def handle_concurrent_access_conflict(self, other_conversation) -> bool:
         """
@@ -109,7 +109,7 @@ class TaskTag(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     # Relationship to tag assignments (many-to-many through TaskTagAssignment)
-    tag_assignments: List["TaskTagAssignment"] = Relationship(back_populates="tag", cascade_delete=True)
+    tag_assignments: List["TaskTagAssignment"] = Relationship(back_populates="tag", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
 
 
 class TaskTagAssignment(SQLModel, table=True):

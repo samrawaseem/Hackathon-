@@ -11,7 +11,7 @@ import { SearchBar } from '@/components/SearchBar';
 import { FilterPanel } from '@/components/FilterPanel';
 import { SortControls } from '@/components/SortControls';
 import TaskSkeleton from '@/components/TaskSkeleton';
-import { Plus } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
 
 export default function TodosPage() {
     const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -95,20 +95,22 @@ export default function TodosPage() {
 
     return (
         <ErrorBoundary>
-            <div className="space-y-6">
+            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">My Tasks</h1>
-                    <p className="text-gray-500">Manage and organize your daily tasks.</p>
+                    <h1 className="text-3xl font-bold text-white tracking-tight">
+                        Task <span className="text-neon-cyan">Management</span>
+                    </h1>
+                    <p className="text-gray-400 mt-2">Manage and organize your daily tasks in your cyber workspace.</p>
                 </div>
 
                 {tasksApi.error && (
-                    <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl shadow-sm">
+                    <div className="p-4 bg-neon-pink/10 border border-neon-pink/20 text-neon-pink rounded-xl shadow-[0_0_15px_rgba(255,0,127,0.1)] backdrop-blur-md">
                         Failed to load tasks: {tasksApi.error.message}. Please refresh the page.
                     </div>
                 )}
 
                 {createApi.error && (
-                    <div className="p-4 bg-red-50 border border-red-100 text-red-700 rounded-xl shadow-sm">
+                    <div className="p-4 bg-neon-pink/10 border border-neon-pink/20 text-neon-pink rounded-xl shadow-[0_0_15px_rgba(255,0,127,0.1)] backdrop-blur-md">
                         Failed to create task: {createApi.error.message}. Please try again.
                     </div>
                 )}
@@ -117,23 +119,26 @@ export default function TodosPage() {
                     {/* Sidebar / Controls */}
                     <div className="lg:col-span-4 space-y-6">
                         {/* Add Task Panel */}
-                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                                <Plus className="h-5 w-5 text-primary-500" />
-                                New Task
+                        <div className="glass-panel p-6 border-white/5 bg-white/5 border-neon-cyan/10 hover:border-neon-cyan/30 transition-all duration-500">
+                            <h2 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+                                <Plus className="h-5 w-5 text-neon-cyan animate-pulse" />
+                                <span className="text-neon-cyan">New</span> Task
                             </h2>
-                            <form onSubmit={handleCreateTask} className="space-y-4">
-                                <input
-                                    type="text"
-                                    value={newTaskTitle}
-                                    onChange={(e) => setNewTaskTitle(e.target.value)}
-                                    placeholder="What needs to be done?"
-                                    className="input-luxury"
-                                    disabled={createApi.loading}
-                                />
+                            <form onSubmit={handleCreateTask} className="space-y-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest ml-1">Title</label>
+                                    <input
+                                        type="text"
+                                        value={newTaskTitle}
+                                        onChange={(e) => setNewTaskTitle(e.target.value)}
+                                        placeholder="What needs to be done?"
+                                        className="input-neon"
+                                        disabled={createApi.loading}
+                                    />
+                                </div>
 
                                 <div className="space-y-3">
-                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider ml-1">Priority</label>
+                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest ml-1">Priority</label>
                                     <PrioritySelector
                                         value={newTaskPriority}
                                         onChange={setNewTaskPriority}
@@ -142,7 +147,7 @@ export default function TodosPage() {
                                 </div>
 
                                 <div className="space-y-3">
-                                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider ml-1">Tags</label>
+                                    <label className="text-xs font-semibold text-gray-500 uppercase tracking-widest ml-1">Tags</label>
                                     <TagInput
                                         value={newTaskTags}
                                         onChange={setNewTaskTags}
@@ -153,17 +158,27 @@ export default function TodosPage() {
 
                                 <button
                                     type="submit"
-                                    className={`btn-luxury w-full mt-2 flex justify-center items-center ${createApi.loading ? 'opacity-70' : ''}`}
+                                    className={`btn-neon w-full mt-4 flex justify-center items-center gap-2 ${createApi.loading ? 'opacity-70' : ''}`}
                                     disabled={createApi.loading}
                                 >
-                                    {createApi.loading ? 'Adding...' : 'Add Task'}
+                                    {createApi.loading ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            Initializing...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Plus className="w-4 h-4" />
+                                            Engage Task
+                                        </>
+                                    )}
                                 </button>
                             </form>
                         </div>
 
                         {/* Filters Panel */}
-                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Filters</h2>
+                        <div className="glass-panel p-6 border-white/5 bg-white/5">
+                            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 border-b border-white/10 pb-2">Filters</h3>
                             <FilterPanel
                                 status={statusFilter}
                                 priority={priorityFilter}
@@ -178,12 +193,12 @@ export default function TodosPage() {
                     {/* Main Content / List */}
                     <div className="lg:col-span-8 space-y-6">
                         {/* Search & Sort */}
-                        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                        <div className="glass-panel p-4 border-white/5 flex flex-col sm:flex-row gap-4 items-center justify-between">
                             <div className="w-full sm:w-2/3">
                                 <SearchBar
                                     value={searchQuery}
                                     onChange={setSearchQuery}
-                                    placeholder="Search tasks..."
+                                    placeholder="Scouring database..."
                                 />
                             </div>
                             <div className="w-full sm:w-auto">
@@ -203,16 +218,22 @@ export default function TodosPage() {
                                     <TaskSkeleton key={`skeleton-${index}`} />
                                 ))
                             ) : tasks.length === 0 ? (
-                                <div className="bg-white p-12 rounded-xl shadow-sm border border-gray-100 text-center">
-                                    <div className="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <Plus className="h-10 w-10 text-primary-300" />
+                                <div className="glass-panel p-16 border-white/5 border-dashed text-center">
+                                    <div className="w-24 h-24 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                                        <Plus className="h-12 w-12 text-gray-600" />
                                     </div>
-                                    <h3 className="text-xl font-medium text-gray-800 mb-2">No tasks found</h3>
-                                    <p className="text-gray-500">
+                                    <h3 className="text-xl font-bold text-white mb-2">No data signals found</h3>
+                                    <p className="text-gray-500 max-w-xs mx-auto">
                                         {searchQuery || statusFilter !== 'all'
-                                            ? "Try adjusting your filters or search query"
-                                            : "Create a new task to get started"}
+                                            ? "The current parameters returned no matching task entities."
+                                            : "Initialize your first objective to populate this dashboard."}
                                     </p>
+                                    <button
+                                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                        className="mt-6 text-neon-cyan hover:underline text-sm font-semibold uppercase tracking-wider"
+                                    >
+                                        Create New Objective
+                                    </button>
                                 </div>
                             ) : (
                                 tasks.map((task) => (

@@ -20,7 +20,7 @@ export function TaskTags({ tags }: TaskTagsProps) {
       {tags.map((tag, index) => (
         <span
           key={index}
-          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 border border-blue-300"
+          className="inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-white/5 text-gray-400 border border-white/10 hover:border-neon-cyan/30 hover:text-neon-cyan transition-all duration-300"
         >
           {tag}
         </span>

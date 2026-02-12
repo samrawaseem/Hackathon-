@@ -13,9 +13,9 @@ interface PriorityBadgeProps {
 
 export function PriorityBadge({ priority }: PriorityBadgeProps) {
   const styles = {
-    high: "bg-error-100 text-error-700 ring-error-200",
-    medium: "bg-warning-100 text-warning-700 ring-warning-200",
-    low: "bg-gray-100 text-gray-700 ring-gray-200",
+    high: "bg-neon-pink/10 text-neon-pink ring-neon-pink/30 shadow-[0_0_10px_rgba(255,0,127,0.1)]",
+    medium: "bg-neon-purple/10 text-neon-purple ring-neon-purple/30 shadow-[0_0_10px_rgba(188,19,254,0.1)]",
+    low: "bg-neon-cyan/10 text-neon-cyan ring-neon-cyan/30 shadow-[0_0_10px_rgba(0,243,255,0.1)]",
   };
 
   const labels = {
@@ -26,7 +26,7 @@ export function PriorityBadge({ priority }: PriorityBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ring-1 ring-inset ${styles[priority]}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 ${styles[priority].replace('bg-neon', 'bg-neon').replace('ring-neon', 'ring-neon')} hover:border-neon-cyan/30 hover:text-neon-cyan transition-colors duration-300`}
     >
       {labels[priority]}
     </span>

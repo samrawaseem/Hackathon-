@@ -16,7 +16,7 @@ from typing import Generator
 from datetime import datetime
 
 # Import the app and models directly from the backend package
-from main import app
+from main import app, get_current_user as main_get_current_user
 from models import Task, User
 from db import get_session
 from routes.auth import UserContext, get_current_user
@@ -82,6 +82,7 @@ def test_user_isolation_get_tasks(client: TestClient, session: Session, user_a: 
         return user_a
 
     app.dependency_overrides[get_current_user] = get_current_user_override
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_a.user_id}
 
     # User A should only see their own tasks
     response = client.get("/api/tasks/")
@@ -96,6 +97,7 @@ def test_user_isolation_get_tasks(client: TestClient, session: Session, user_a: 
         return user_b
 
     app.dependency_overrides[get_current_user] = get_current_user_override_b
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_b.user_id}
 
     # User B should only see their own tasks
     response = client.get("/api/tasks/")
@@ -125,6 +127,7 @@ def test_user_isolation_get_specific_task(client: TestClient, session: Session, 
         return user_a
 
     app.dependency_overrides[get_current_user] = get_current_user_override
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_a.user_id}
 
     # User A should be able to access their own task
     response = client.get(f"/api/tasks/{task_a.id}")
@@ -157,6 +160,7 @@ def test_user_isolation_update_task(client: TestClient, session: Session, user_a
         return user_a
 
     app.dependency_overrides[get_current_user] = get_current_user_override
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_a.user_id}
 
     # User A should be able to update their own task
     update_data = {"title": "Updated User A Task", "is_completed": True}
@@ -193,6 +197,7 @@ def test_user_isolation_delete_task(client: TestClient, session: Session, user_a
         return user_a
 
     app.dependency_overrides[get_current_user] = get_current_user_override
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_a.user_id}
 
     # User A should be able to delete their own task
     response = client.delete(f"/api/tasks/{task_a.id}")
@@ -214,6 +219,7 @@ def test_user_isolation_delete_task(client: TestClient, session: Session, user_a
         return user_b
 
     app.dependency_overrides[get_current_user] = get_current_user_override_b
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_b.user_id}
 
     response = client.get(f"/api/tasks/{task_b.id}")
     assert response.status_code == 200
@@ -244,6 +250,7 @@ def test_cross_user_access_scenarios(client: TestClient, session: Session, user_
         return user_a
 
     app.dependency_overrides[get_current_user] = get_current_user_override
+    app.dependency_overrides[main_get_current_user] = lambda: {"user_id": user_a.user_id}
 
     # User A should only see their 3 tasks
     response = client.get("/api/tasks/")

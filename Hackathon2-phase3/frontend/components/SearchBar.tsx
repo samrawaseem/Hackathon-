@@ -50,10 +50,10 @@ export function SearchBar({
           value={localValue}
           onChange={(e) => setLocalValue(e.target.value)}
           placeholder={placeholder}
-          className="input-luxury pl-12 pr-10"
+          className="input-neon pl-12 pr-10"
         />
         <svg
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500 group-hover:text-neon-cyan transition-all duration-300 group-hover:filter group-hover:drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -68,10 +68,10 @@ export function SearchBar({
         {localValue && (
           <button
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-error-500 transition-colors p-1 rounded-full hover:bg-error-50"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-neon-pink transition-all duration-300 p-1.5 rounded-lg hover:bg-neon-pink/10 border border-transparent hover:border-neon-pink/20"
             aria-label="Clear search"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

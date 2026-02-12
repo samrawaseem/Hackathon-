@@ -164,16 +164,16 @@ export default function ChatPage() {
     return (
         <div className="flex h-[calc(100vh-8rem)] gap-6 p-2">
             {/* Conversations Sidebar */}
-            <div className="w-85 glass-panel flex flex-col overflow-hidden transition-all duration-300 hover:shadow-glow">
-                <div className="p-6 border-b border-primary-100/20 bg-white/10">
+            <div className="w-85 glass-panel-neon flex flex-col overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,243,255,0.1)]">
+                <div className="p-6 border-b border-white/10 bg-white/5">
                     <div className="flex items-center justify-between mb-2">
-                        <h2 className="text-xl font-bold text-gradient">Conversations</h2>
+                        <h2 className="text-xl font-bold text-white tracking-tight uppercase tracking-[0.2em] text-xs opacity-50">Memory Logs</h2>
                         <button
                             onClick={handleNewConversation}
-                            className="p-2 hover:bg-primary-100/30 rounded-xl transition-all duration-200 active:scale-95"
-                            title="New Conversation"
+                            className="p-2 hover:bg-neon-cyan/20 rounded-xl transition-all duration-300 border border-transparent hover:border-neon-cyan/30 active:scale-95 group"
+                            title="Initialize New Stream"
                         >
-                            <Plus className="w-6 h-6 text-primary-600" />
+                            <Plus className="w-6 h-6 text-neon-cyan group-hover:scale-110 transition-transform" />
                         </button>
                     </div>
                 </div>
@@ -181,15 +181,15 @@ export default function ChatPage() {
                 <div className="flex-1 overflow-y-auto p-3 space-y-2 custom-scrollbar">
                     {isLoadingConversations ? (
                         <div className="flex items-center justify-center h-32">
-                            <Loader2 className="w-8 h-8 animate-spin text-primary-400" />
+                            <Loader2 className="w-8 h-8 animate-spin text-neon-cyan" />
                         </div>
                     ) : conversations.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center h-48 text-primary-300/60 px-6">
-                            <div className="p-4 bg-primary-50 rounded-full mb-4">
-                                <MessageSquare className="w-10 h-10" />
+                        <div className="flex flex-col items-center justify-center h-48 text-gray-500 px-6">
+                            <div className="p-4 bg-white/5 border border-white/10 rounded-full mb-4">
+                                <MessageSquare className="w-10 h-10 opacity-20" />
                             </div>
-                            <p className="text-sm font-medium text-center">No conversations yet</p>
-                            <p className="text-xs text-center mt-1">Start a wave of ideas!</p>
+                            <p className="text-sm font-semibold text-center uppercase tracking-widest text-[10px]">No Neural Streams</p>
+                            <p className="text-[10px] text-center mt-2 opacity-60">Initialize your first objective.</p>
                         </div>
                     ) : (
                         <div className="space-y-2">
@@ -197,34 +197,31 @@ export default function ChatPage() {
                                 <div
                                     key={conv.id}
                                     onClick={() => loadConversationMessages(conv.id)}
-                                    className={`p-4 rounded-xl cursor-pointer transition-all duration-200 group relative overflow-hidden ${activeConversationId === conv.id
-                                        ? 'bg-gradient-to-r from-primary-500/10 to-secondary-500/10 border border-primary-200/50 shadow-sm'
-                                        : 'hover:bg-white/40 border border-transparent'
+                                    className={`p-4 rounded-xl cursor-pointer transition-all duration-300 group relative overflow-hidden ${activeConversationId === conv.id
+                                        ? 'bg-neon-cyan/10 border border-neon-cyan/30 shadow-[0_0_20px_rgba(0,243,255,0.1)]'
+                                        : 'hover:bg-white/5 border border-white/5 hover:border-white/10'
                                         }`}
                                 >
-                                    {activeConversationId === conv.id && (
-                                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 rounded-full" />
-                                    )}
                                     <div className="flex items-start justify-between gap-3">
                                         <div className="flex-1 min-w-0">
-                                            <h3 className={`font-semibold truncate text-sm ${activeConversationId === conv.id ? 'text-primary-700' : 'text-gray-700'}`}>
+                                            <h3 className={`font-semibold truncate text-sm tracking-tight ${activeConversationId === conv.id ? 'text-white' : 'text-gray-400'}`}>
                                                 {conv.title}
                                             </h3>
-                                            <div className="flex items-center gap-2 mt-1">
-                                                <span className="text-[10px] px-2 py-0.5 bg-primary-50 text-primary-600 rounded-full font-medium">
-                                                    {conv.message_count} msgs
+                                            <div className="flex items-center gap-3 mt-2">
+                                                <span className="text-[10px] px-2 py-0.5 bg-white/5 text-neon-cyan rounded-md font-bold uppercase tracking-wider border border-white/5">
+                                                    {conv.message_count} Nodes
                                                 </span>
-                                                <span className="text-[10px] text-gray-400">
+                                                <span className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">
                                                     {new Date(conv.updated_at).toLocaleDateString()}
                                                 </span>
                                             </div>
                                         </div>
                                         <button
                                             onClick={(e) => handleDeleteConversation(conv.id, e)}
-                                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 rounded-lg transition-all duration-200"
-                                            title="Delete conversation"
+                                            className="opacity-0 group-hover:opacity-100 p-2 hover:bg-neon-pink/20 rounded-lg transition-all duration-300 border border-transparent hover:border-neon-pink/30"
+                                            title="Purge Stream"
                                         >
-                                            <Trash2 className="w-4 h-4 text-red-400 hover:text-red-600" />
+                                            <Trash2 className="w-4 h-4 text-neon-pink" />
                                         </button>
                                     </div>
                                 </div>
@@ -238,46 +235,48 @@ export default function ChatPage() {
             <div className="flex-1 flex flex-col gap-4">
                 <div className="flex items-center justify-between px-2">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-gradient tracking-tight">AI Navigator</h1>
-                        <p className="text-sm text-primary-600/70 font-medium">Charting your tasks with intelligence.</p>
+                        <h1 className="text-3xl font-black text-white tracking-tighter uppercase italic"><span className="text-neon-cyan">Neural</span> Interface</h1>
+                        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em] mt-1 ml-1">Predictive Analytics Platform</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <select
                             value={selectedModel}
                             onChange={(e) => setSelectedModel(e.target.value)}
-                            className="bg-white/50 backdrop-blur-sm border border-primary-100 rounded-full px-4 py-2 text-xs font-semibold text-primary-700 outline-none focus:ring-2 focus:ring-primary-500/20 transition-all cursor-pointer hover:bg-white/80"
+                            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-neon-purple outline-none focus:ring-2 focus:ring-neon-purple/20 transition-all cursor-pointer hover:bg-white/10"
                         >
                             {availableModels.map(model => (
-                                <option key={model.id} value={model.id}>{model.name}</option>
+                                <option key={model.id} value={model.id} className="bg-dark-bg">{model.name}</option>
                             ))}
                         </select>
-                        <div className="flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full border border-primary-100 shadow-sm">
-                            <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse" />
-                            <span className="text-xs font-semibold text-primary-700">System Online</span>
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-[0_0_15px_rgba(0,0,0,0.2)]">
+                            <div className="w-1.5 h-1.5 bg-neon-cyan rounded-full animate-pulse shadow-[0_0_8px_rgba(0,243,255,1)]" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Online</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex-1 glass-panel flex flex-col overflow-hidden relative">
+                <div className="flex-1 glass-panel flex flex-col overflow-hidden relative border-white/5">
                     {/* Background Decorative Elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary-200/10 rounded-full blur-3xl -z-10" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-200/10 rounded-full blur-3xl -z-10" />
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-neon-cyan/5 rounded-full blur-[120px] -z-10 animate-pulse" />
+                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-neon-purple/5 rounded-full blur-[120px] -z-10 animate-pulse" style={{ animationDelay: '1000ms' }} />
 
                     {/* Chat Messages Area */}
-                    <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+                    <div className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
                         {messages.length === 0 ? (
-                            <div className="h-full flex flex-col items-center justify-center text-primary-300/80">
-                                <div className="w-20 h-20 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-3xl flex items-center justify-center mb-6 shadow-lg rotate-3">
-                                    <Bot className="w-10 h-10 text-primary-600" />
+                            <div className="h-full flex flex-col items-center justify-center text-gray-500">
+                                <div className="w-24 h-24 glass-panel border-neon-cyan/20 rounded-[2rem] flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(0,243,255,0.1)] rotate-3 animate-float transition-all hover:rotate-0 hover:scale-110">
+                                    <Bot className="w-12 h-12 text-neon-cyan" />
                                 </div>
-                                <h3 className="text-xl font-bold text-primary-800 mb-2">Ready to Dive In?</h3>
-                                <p className="text-center max-w-xs text-sm font-medium">I can help you manage your tasks with simple commands.</p>
-                                <div className="mt-8 grid grid-cols-1 gap-3 w-full max-w-sm">
-                                    <div className="p-3 bg-white/40 border border-primary-100 rounded-xl text-xs font-medium text-primary-700 hover:bg-white/60 transition-colors cursor-pointer">
-                                        "Add a task to prepare for the deep sea dive"
+                                <h3 className="text-2xl font-black text-white mb-3 uppercase tracking-tighter">System Ready</h3>
+                                <p className="text-center max-w-xs text-xs font-bold uppercase tracking-[0.15em] opacity-40">Awaiting user command input. Standing by for task allocation.</p>
+                                <div className="mt-12 grid grid-cols-1 gap-4 w-full max-w-md">
+                                    <div className="p-4 glass-panel border-white/5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.1em] text-neon-cyan hover:bg-neon-cyan/5 transition-all cursor-pointer flex items-center gap-3 group">
+                                        <div className="w-2 h-2 rounded-full bg-neon-cyan/30 group-hover:bg-neon-cyan transition-colors" />
+                                        "Synchronize pending objectives"
                                     </div>
-                                    <div className="p-3 bg-white/40 border border-primary-100 rounded-xl text-xs font-medium text-primary-700 hover:bg-white/60 transition-colors cursor-pointer">
-                                        "List all my pending tasks"
+                                    <div className="p-4 glass-panel border-white/5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.1em] text-neon-purple hover:bg-neon-purple/5 transition-all cursor-pointer flex items-center gap-3 group">
+                                        <div className="w-2 h-2 rounded-full bg-neon-purple/30 group-hover:bg-neon-purple transition-colors" />
+                                        "Generate productivity analytics"
                                     </div>
                                 </div>
                             </div>
@@ -285,13 +284,13 @@ export default function ChatPage() {
                             messages.map((msg) => (
                                 <div
                                     key={msg.id}
-                                    className={`flex items-start gap-4 ${msg.role === 'user' ? 'flex-row-reverse' : ''
-                                        } animate-in fade-in slide-in-from-bottom-2 duration-300`}
+                                    className={`flex items-start gap-5 ${msg.role === 'user' ? 'flex-row-reverse' : ''
+                                        } animate-in fade-in slide-in-from-bottom-4 duration-500`}
                                 >
                                     <div
-                                        className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm ${msg.role === 'user'
-                                            ? 'bg-gradient-to-br from-primary-500 to-primary-700 text-white'
-                                            : 'bg-gradient-to-br from-secondary-400 to-secondary-600 text-white'
+                                        className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg border transition-all duration-300 ${msg.role === 'user'
+                                            ? 'bg-neon-cyan/10 border-neon-cyan/30 text-neon-cyan shadow-[0_0_15px_rgba(0,243,255,0.2)]'
+                                            : 'bg-neon-purple/10 border-neon-purple/30 text-neon-purple shadow-[0_0_15px_rgba(188,19,254,0.2)]'
                                             }`}
                                     >
                                         {msg.role === 'user' ? (
@@ -301,32 +300,29 @@ export default function ChatPage() {
                                         )}
                                     </div>
                                     <div
-                                        className={`max-w-[75%] p-4 rounded-2xl shadow-sm relative ${msg.role === 'user'
-                                            ? 'bg-gradient-to-br from-primary-600 to-primary-800 text-white rounded-tr-none'
-                                            : 'bg-white/80 backdrop-blur-md text-gray-800 border border-primary-100 rounded-tl-none'
+                                        className={`max-w-[80%] p-5 rounded-2xl relative border transition-all duration-500 ${msg.role === 'user'
+                                            ? 'bg-neon-cyan/5 border-neon-cyan/20 text-white rounded-tr-none shadow-[0_0_30px_rgba(0,243,255,0.05)]'
+                                            : 'bg-white/5 backdrop-blur-xl text-gray-100 border-white/10 rounded-tl-none shadow-[0_0_30px_rgba(255,255,255,0.02)] hover:border-neon-purple/30'
                                             }`}
                                     >
-                                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                                        <div className={`text-[10px] mt-2 font-medium ${msg.role === 'user' ? 'text-primary-100' : 'text-gray-400'}`}>
-                                            {msg.timestamp.toLocaleTimeString([], {
-                                                hour: '2-digit',
-                                                minute: '2-digit',
-                                            })}
+                                        <p className="text-sm leading-relaxed whitespace-pre-wrap font-medium">{msg.content}</p>
+                                        <div className={`text-[9px] mt-4 font-black uppercase tracking-[0.2em] opacity-40 ${msg.role === 'user' ? 'text-neon-cyan' : 'text-neon-purple'}`}>
+                                            {new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(msg.timestamp)}
                                         </div>
                                     </div>
                                 </div>
                             ))
                         )}
                         {isLoading && (
-                            <div className="flex items-start gap-4 animate-pulse">
-                                <div className="w-10 h-10 rounded-2xl bg-secondary-100 flex items-center justify-center flex-shrink-0">
-                                    <Bot className="w-6 h-6 text-secondary-400" />
+                            <div className="flex items-start gap-5 animate-pulse">
+                                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                                    <Bot className="w-6 h-6 text-gray-600" />
                                 </div>
-                                <div className="bg-white/60 backdrop-blur-sm p-4 rounded-2xl rounded-tl-none border border-primary-50">
-                                    <div className="flex gap-1">
-                                        <div className="w-2 h-2 bg-secondary-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                        <div className="w-2 h-2 bg-secondary-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                        <div className="w-2 h-2 bg-secondary-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                <div className="bg-white/5 backdrop-blur-md p-5 rounded-2xl rounded-tl-none border border-white/10 min-w-[100px] flex items-center justify-center">
+                                    <div className="flex gap-2">
+                                        <div className="w-1.5 h-1.5 bg-neon-purple rounded-full animate-bounce shadow-[0_0_8px_rgba(188,19,254,1)]" style={{ animationDelay: '0ms' }} />
+                                        <div className="w-1.5 h-1.5 bg-neon-purple rounded-full animate-bounce shadow-[0_0_8px_rgba(188,19,254,1)]" style={{ animationDelay: '200ms' }} />
+                                        <div className="w-1.5 h-1.5 bg-neon-purple rounded-full animate-bounce shadow-[0_0_8px_rgba(188,19,254,1)]" style={{ animationDelay: '400ms' }} />
                                     </div>
                                 </div>
                             </div>
@@ -335,25 +331,25 @@ export default function ChatPage() {
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-6 bg-white/30 backdrop-blur-xl border-t border-primary-100/30">
-                        <form onSubmit={handleSendMessage} className="flex gap-3 max-w-4xl mx-auto">
+                    <div className="p-8 bg-black/40 backdrop-blur-2xl border-t border-white/5">
+                        <form onSubmit={handleSendMessage} className="flex gap-4 max-w-5xl mx-auto items-center">
                             <div className="relative flex-1 group">
                                 <input
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Type your command..."
-                                    className="input-luxury pr-12 text-sm font-medium"
+                                    placeholder="Execute neural command..."
+                                    className="input-neon pr-16 text-sm font-semibold h-14"
                                     disabled={isLoading}
                                 />
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-primary-300 group-focus-within:text-primary-500 transition-colors">
-                                    <MessageSquare className="w-5 h-5" />
+                                <div className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-neon-cyan transition-all duration-300">
+                                    <MessageSquare className="w-6 h-6" />
                                 </div>
                             </div>
                             <button
                                 type="submit"
                                 disabled={isLoading || !input.trim()}
-                                className="btn-luxury !px-6 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                className="w-14 h-14 bg-neon-cyan text-black rounded-xl flex items-center justify-center disabled:opacity-30 disabled:grayscale disabled:transform-none transition-all duration-300 hover:scale-110 hover:shadow-[0_0_25px_rgba(0,243,255,0.6)] active:scale-95"
                             >
                                 {isLoading ? (
                                     <Loader2 className="w-6 h-6 animate-spin" />
@@ -362,8 +358,8 @@ export default function ChatPage() {
                                 )}
                             </button>
                         </form>
-                        <p className="text-[10px] text-center mt-3 text-primary-400 font-medium">
-                            Powered by AI Navigator • Charting your productivity
+                        <p className="text-[9px] text-center mt-4 text-gray-600 font-bold uppercase tracking-[0.4em]">
+                            System Status: <span className="text-neon-cyan">Optimal</span> • Integrity: <span className="text-neon-purple">100%</span>
                         </p>
                     </div>
                 </div>

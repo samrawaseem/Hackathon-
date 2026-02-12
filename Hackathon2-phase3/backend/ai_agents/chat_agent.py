@@ -15,7 +15,7 @@ from agents import Agent, Runner, AsyncOpenAI, ModelSettings, OpenAIChatCompleti
 # Import MCP tools
 from mcp.tools import add_todo, list_todos, update_todo, complete_todo, delete_todo
 
-# Load environment variables
+# Load environment variables explicitly
 load_dotenv(find_dotenv())
 
 # Configure logging
@@ -23,17 +23,19 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # --- Configuration ---
-# Ensure OPENAI_API_KEY is set (even if dummy for Gemini)
-if not os.getenv("OPENAI_API_KEY"):
-    os.environ["OPENAI_API_KEY"] = "dummy-key-for-gemini"
-
+# Get key from environment
 gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+
+# Sync OPENAI_API_KEY for clients that default to it
+if gemini_api_key:
+    os.environ["OPENAI_API_KEY"] = gemini_api_key
 
 if not gemini_api_key:
     logger.warning("Warning: GEMINI_API_KEY not found in .env")
 
 # Initialize the client once
 # 1. Which LLM Service? (Gemini via OpenAI-compatible API)
+# Use a lazy initialization or ensure it is called after load_dotenv
 external_client: AsyncOpenAI = AsyncOpenAI(
     api_key=gemini_api_key,
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
@@ -41,11 +43,11 @@ external_client: AsyncOpenAI = AsyncOpenAI(
 
 # 2. Which LLM Model?
 llm_model: OpenAIChatCompletionsModel = OpenAIChatCompletionsModel(
-    model="gemini-2.5-flash-lite",
+    model="gemini-1.5-flash",
     openai_client=external_client
 )
 
-def create_chat_agent(user_id: str, model_name: str = "gemini-2.5-flash-lite") -> Agent:
+def create_chat_agent(user_id: str, model_name: str = "gemini-1.5-flash") -> Agent:
     """
     Create and return a configured chat agent with user-bound tools.
     

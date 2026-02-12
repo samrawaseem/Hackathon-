@@ -219,6 +219,24 @@ def get_tasks(
     tasks = session.exec(query).all()
     return tasks
 
+@router.get("/{task_id}", response_model=Task)
+def get_task(
+    task_id: int,
+    current_user: UserContext = Depends(get_current_user),
+    session: Session = Depends(get_session)
+):
+    """
+    Get a specific task by ID.
+    User isolation: users can only access their own tasks.
+    """
+    statement = select(Task).where(Task.id == task_id, Task.user_id == current_user.user_id)
+    task = session.exec(statement).first()
+
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    return task
+
 @router.post("/", response_model=Task)
 def create_task(
     request: TaskCreateRequest,

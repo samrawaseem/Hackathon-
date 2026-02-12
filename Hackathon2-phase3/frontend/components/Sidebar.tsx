@@ -12,19 +12,24 @@ export function Sidebar({ className }: { className?: string }) {
     const { data: session } = useSession();
 
     const navItems = [
-        { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-        { name: 'Todos', href: '/dashboard/todos', icon: CheckSquare },
-        { name: 'Chat', href: '/dashboard/chat', icon: MessageSquare },
-        { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+        { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+        { name: 'Task Registry', href: '/dashboard/todos', icon: CheckSquare },
+        { name: 'Neural Chat', href: '/dashboard/chat', icon: MessageSquare },
+        { name: 'Control Center', href: '/dashboard/settings', icon: Settings },
     ];
 
     return (
-        <div className={twMerge("flex flex-col h-full bg-white border-r border-gray-200", className)}>
+        <div className={twMerge("flex flex-col h-full bg-dark-bg/60 backdrop-blur-xl border-r border-white/10 relative z-30", className)}>
             <div className="p-6 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center text-black font-black text-xl shadow-[0_0_15px_rgba(0,243,255,0.5)] transition-transform hover:rotate-12">
                     T
                 </div>
-                <h1 className="text-xl font-bold text-gray-800 tracking-tight">My Tasks</h1>
+                <div>
+                    <h1 className="text-xl font-black text-white tracking-tighter uppercase italic leading-none">
+                        Neural <span className="text-neon-cyan">Core</span>
+                    </h1>
+                    <span className="text-[7px] font-black text-gray-500 uppercase tracking-[0.4em]">Node Active</span>
+                </div>
             </div>
 
             <nav className="flex-1 px-4 space-y-2 py-4">
@@ -35,16 +40,17 @@ export function Sidebar({ className }: { className?: string }) {
                             key={item.href}
                             href={item.href}
                             className={clsx(
-                                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group relative overflow-hidden",
                                 isActive
-                                    ? "bg-primary-50 text-primary-700 font-medium shadow-sm"
-                                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                    ? "bg-neon-cyan/10 text-neon-cyan font-medium border border-neon-cyan/20 shadow-[0_0_20px_rgba(0,243,255,0.1)]"
+                                    : "text-gray-400 hover:bg-white/5 hover:text-white"
                             )}
                         >
+                            {isActive && <div className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-neon-cyan rounded-r-full shadow-[0_0_10px_rgba(0,243,255,0.8)]" />}
                             <item.icon
                                 className={clsx(
-                                    "w-5 h-5 transition-colors",
-                                    isActive ? "text-primary-500" : "text-gray-400 group-hover:text-gray-600"
+                                    "w-5 h-5 transition-colors duration-300",
+                                    isActive ? "text-neon-cyan filter drop-shadow-[0_0_5px_rgba(0,243,255,0.5)]" : "text-gray-500 group-hover:text-gray-300"
                                 )}
                             />
                             {item.name}
@@ -53,13 +59,13 @@ export function Sidebar({ className }: { className?: string }) {
                 })}
             </nav>
 
-            <div className="p-4 border-t border-gray-200">
+            <div className="p-4 border-t border-white/10 bg-black/20">
                 <div className="flex items-center gap-3 mb-4 px-2">
-                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-neon-cyan shadow-[0_0_10px_rgba(0,243,255,0.2)]">
                         <User className="w-5 h-5" />
                     </div>
                     <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-white truncate">
                             {session?.user?.name || 'User'}
                         </p>
                         <p className="text-xs text-gray-500 truncate">
@@ -72,12 +78,12 @@ export function Sidebar({ className }: { className?: string }) {
                         await signOut();
                         window.location.href = '/login';
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 bg-gray-50 hover:bg-red-50 hover:text-red-600 rounded-lg transition-all border border-gray-200 hover:border-red-200"
+                    className="w-full h-12 flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 bg-white/5 hover:bg-neon-pink/10 hover:text-neon-pink rounded-xl transition-all border border-white/10 hover:border-neon-pink/30 group shadow-lg"
                 >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
+                    <LogOut className="w-4 h-4 group-hover:filter group-hover:drop-shadow-[0_0_5px_rgba(255,0,127,0.5)]" />
+                    Terminate Session
                 </button>
             </div>
-        </div>
+        </div >
     );
 }
