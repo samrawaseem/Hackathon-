@@ -77,6 +77,23 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     user_data = await verify_jwt_token(token)
     return user_data
 
+@app.get("/")
+async def root():
+    """
+    Root endpoint - provides API information
+    """
+    return {
+        "message": "Todo App API",
+        "version": "1.0.0",
+        "endpoints": {
+            "health": "/api/health",
+            "docs": "/docs",
+            "auth": "/api/auth/*",
+            "tasks": "/api/tasks/*",
+            "tags": "/api/tags/*"
+        }
+    }
+
 @app.get("/api/health")
 @limiter.limit("100/minute")  # Apply rate limiting
 async def health_check(request: Request):
