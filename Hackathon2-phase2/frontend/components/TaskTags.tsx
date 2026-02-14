@@ -16,11 +16,11 @@ export function TaskTags({ tags }: TaskTagsProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap gap-2">
       {tags.map((tag, index) => (
         <span
           key={index}
-          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 border border-blue-300"
+          className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-[9px] font-robot tracking-widest font-bold border border-neon-cyan/40 text-neon-cyan/60 bg-neon-cyan/5 uppercase"
         >
           {tag}
         </span>

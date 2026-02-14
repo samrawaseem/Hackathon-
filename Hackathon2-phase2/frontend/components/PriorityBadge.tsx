@@ -13,20 +13,20 @@ interface PriorityBadgeProps {
 
 export function PriorityBadge({ priority }: PriorityBadgeProps) {
   const styles = {
-    high: "bg-error-100 text-error-700 ring-error-200",
-    medium: "bg-warning-100 text-warning-700 ring-warning-200",
-    low: "bg-gray-100 text-gray-700 ring-gray-200",
+    high: "border-neon-magenta text-neon-magenta bg-neon-magenta/10 shadow-[0_0_8px_rgba(255,0,255,0.3)]",
+    medium: "border-neon-yellow text-neon-yellow bg-neon-yellow/10 shadow-[0_0_8px_rgba(255,240,31,0.3)]",
+    low: "border-neon-cyan text-neon-cyan bg-neon-cyan/10 shadow-[0_0_8px_rgba(0,243,255,0.3)]",
   };
 
   const labels = {
-    high: "High",
-    medium: "Medium",
-    low: "Low",
+    high: "CRITICAL",
+    medium: "STANDARD",
+    low: "MINOR",
   };
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ring-1 ring-inset ${styles[priority]}`}
+      className={`inline-flex items-center px-2 py-0.5 rounded-sm border text-[9px] font-robot tracking-[0.2em] font-bold ${styles[priority]}`}
     >
       {labels[priority]}
     </span>

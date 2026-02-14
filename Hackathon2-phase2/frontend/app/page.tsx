@@ -105,10 +105,11 @@ export default function Home() {
   // Show loading state while checking session
   if (isPending) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 font-sans">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500 mb-4"></div>
-          <p className="text-gray-600 font-medium">Loading your workspace...</p>
+      <div className="flex min-h-screen items-center justify-center bg-cyber-950 font-robot">
+        <div className="text-center relative">
+          <div className="absolute inset-0 bg-neon-cyan/20 blur-2xl rounded-full"></div>
+          <div className="inline-block animate-spin rounded-sm h-12 w-12 border-2 border-neon-cyan shadow-[0_0_15px_rgba(0,243,255,0.5)] mb-4"></div>
+          <p className="text-neon-cyan font-robot tracking-widest uppercase">Initializing Neural Link...</p>
         </div>
       </div>
     );
@@ -118,35 +119,34 @@ export default function Home() {
   if (!session) {
     return (
       <ErrorBoundary>
-        <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden">
-          {/* Decorative Background Elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary-300/20 blur-3xl"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-secondary-300/20 blur-3xl"></div>
-          </div>
+        <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden backdrop-blur-sm">
+          <main className="w-full max-w-4xl mx-auto relative z-10">
+            <div className="glass-panel p-8 sm:p-12 text-center border-neon-cyan/30">
+              <div className="hud-corner top-0 left-0 border-r-0 border-b-0"></div>
+              <div className="hud-corner top-0 right-0 border-l-0 border-b-0"></div>
+              <div className="hud-corner bottom-0 left-0 border-r-0 border-t-0"></div>
+              <div className="hud-corner bottom-0 right-0 border-l-0 border-t-0"></div>
 
-          <main className="w-full max-w-4xl mx-auto">
-            <div className="glass-panel p-8 sm:p-12 text-center">
-              <h1 className="text-4xl sm:text-5xl font-bold text-gradient mb-6">
-                Master Your Day
+              <h1 className="text-5xl sm:text-7xl font-bold text-gradient-neon mb-6 font-robot tracking-tighter">
+                ROBO<span className="text-foreground">TODO</span>
               </h1>
-              <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Experience productivity like never before with our luxury task management suite.
-                Organize, prioritize, and achieve your goals in a serene, sea-inspired environment.
+              <p className="text-xl text-neon-cyan/80 mb-10 max-w-2xl mx-auto leading-relaxed font-robot uppercase tracking-wide">
+                Neural Interface for Advanced Task Optimization.
+                <br /><span className="text-sm opacity-60">Status: Mission Ready. System: Online.</span>
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Link
                   href="/login"
-                  className="btn-luxury min-w-[200px] text-lg"
+                  className="btn-cyan min-w-[240px] text-lg bg-neon-cyan/10"
                 >
-                  Start Your Journey
+                  Authorize System
                 </Link>
                 <Link
                   href="/login"
-                  className="px-8 py-3 rounded-xl border-2 border-primary-200 text-primary-700 font-semibold hover:bg-primary-50 transition-colors min-w-[200px]"
+                  className="px-8 py-3 rounded-sm border border-neon-magenta/50 text-neon-magenta font-robot uppercase tracking-widest hover:bg-neon-magenta/10 transition-all min-w-[240px] shadow-[0_0_10px_rgba(255,0,255,0.2)]"
                 >
-                  Sign In
+                  Access Archives
                 </Link>
               </div>
             </div>
@@ -158,23 +158,21 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen pb-12 font-sans">
+      <div className="min-h-screen pb-12 font-sans relative">
         {/* Navbar / Header */}
-        <header className="glass-panel sticky top-4 mx-4 mb-8 z-10 px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
-              T
+        <header className="glass-panel sticky top-4 mx-4 mb-8 z-10 px-8 py-4 flex justify-between items-center bg-black/40 border-neon-cyan/40">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-sm bg-neon-cyan flex items-center justify-center text-black font-robot font-bold text-xl shadow-[0_0_15px_rgba(0,243,255,0.6)]">
+              R
             </div>
-            <h1 className="text-2xl font-bold text-gray-800 tracking-tight">My Tasks</h1>
+            <h1 className="text-2xl font-bold font-robot text-neon-cyan tracking-widest uppercase">System_Core</h1>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:block text-right">
-              <p className="text-sm font-medium text-gray-900">
-                {session.user?.name || 'User'}
-              </p>
-              <p className="text-xs text-gray-500">
-                {session.user?.email}
+          <div className="flex items-center gap-6">
+            <div className="hidden sm:block text-right border-r border-neon-cyan/20 pr-6">
+              <p className="text-xs font-robot text-neon-cyan/60 uppercase">Operator</p>
+              <p className="text-sm font-robot text-white tracking-wider">
+                {session.user?.name || 'Unknown_Entity'}
               </p>
             </div>
             <button
@@ -182,51 +180,42 @@ export default function Home() {
                 await signOut();
                 window.location.href = '/login';
               }}
-              className="px-4 py-2 text-sm font-medium text-gray-600 bg-white/50 hover:bg-white/80 hover:text-error-600 rounded-lg transition-all border border-transparent hover:border-error-200"
+              className="px-4 py-2 text-xs font-robot text-neon-magenta border border-neon-magenta/30 hover:bg-neon-magenta/10 hover:border-neon-magenta transition-all uppercase tracking-widest"
             >
-              Sign Out
+              Terminate_Session
             </button>
           </div>
         </header>
 
-        <main className="max-w-5xl mx-auto px-4 sm:px-6">
-          {/* Display errors from the API hooks */}
-          {tasksApi.error && (
-            <div className="mb-6 p-4 bg-error-50 border border-error-100 text-error-700 rounded-xl shadow-sm">
-              Failed to load tasks: {tasksApi.error.message}. Please refresh the page.
-            </div>
-          )}
-
-          {createApi.error && (
-            <div className="mb-6 p-4 bg-error-50 border border-error-100 text-error-700 rounded-xl shadow-sm">
-              Failed to create task: {createApi.error.message}. Please try again.
-            </div>
-          )}
-
+        <main className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Sidebar / Controls */}
             <div className="lg:col-span-4 space-y-6">
               {/* Add Task Panel */}
-              <div className="glass-panel p-6">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  New Task
-                </h2>
-                <form onSubmit={handleCreateTask} className="space-y-4">
-                  <input
-                    type="text"
-                    value={newTaskTitle}
-                    onChange={(e) => setNewTaskTitle(e.target.value)}
-                    placeholder="What needs to be done?"
-                    className="input-luxury"
-                    aria-label="New task title"
-                    disabled={createApi.loading}
-                  />
+              <div className="glass-panel p-6 border-neon-cyan/20 bg-black/60">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-sm font-robot text-neon-cyan uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-2 h-2 bg-neon-cyan animate-pulse"></span>
+                    Task_Injection
+                  </h2>
+                  <span className="text-[10px] font-robot text-neon-cyan/40">ID: {Math.random().toString(36).substr(2, 6).toUpperCase()}</span>
+                </div>
+
+                <form onSubmit={handleCreateTask} className="space-y-6">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={newTaskTitle}
+                      onChange={(e) => setNewTaskTitle(e.target.value)}
+                      placeholder="Enter Command Data..."
+                      className="input-cyber"
+                      aria-label="New task title"
+                      disabled={createApi.loading}
+                    />
+                  </div>
 
                   <div className="space-y-3">
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider ml-1">Priority</label>
+                    <label className="text-[10px] font-robot text-neon-cyan/60 uppercase tracking-[0.2em] ml-1">Priority_Level</label>
                     <PrioritySelector
                       value={newTaskPriority}
                       onChange={setNewTaskPriority}
@@ -235,7 +224,7 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-3">
-                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wider ml-1">Tags</label>
+                    <label className="text-[10px] font-robot text-neon-cyan/60 uppercase tracking-[0.2em] ml-1">Classification_Tags</label>
                     <TagInput
                       value={newTaskTags}
                       onChange={setNewTaskTags}
@@ -246,21 +235,19 @@ export default function Home() {
 
                   <button
                     type="submit"
-                    className={`btn-luxury w-full mt-2 flex justify-center items-center ${createApi.loading ? 'opacity-70' : ''}`}
+                    className={`btn-cyan w-full flex justify-center items-center ${createApi.loading ? 'opacity-50' : ''}`}
                     disabled={createApi.loading}
                   >
-                    {createApi.loading ? 'Adding...' : 'Add Task'}
+                    {createApi.loading ? 'Processing...' : 'Execute_Create'}
                   </button>
                 </form>
               </div>
 
               {/* Filters Panel */}
-              <div className="glass-panel p-6">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-secondary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                  </svg>
-                  Filters
+              <div className="glass-panel p-6 border-neon-magenta/20 bg-black/60">
+                <h2 className="text-sm font-robot text-neon-magenta uppercase tracking-widest mb-6 flex items-center gap-2">
+                  <span className="w-2 h-2 bg-neon-magenta animate-pulse"></span>
+                  Matrix_Filter
                 </h2>
                 <FilterPanel
                   status={statusFilter}
@@ -275,13 +262,13 @@ export default function Home() {
 
             {/* Main Content / List */}
             <div className="lg:col-span-8 space-y-6">
-              {/* Search & Sort */}
-              <div className="glass-panel p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+              {/* Search & Sort HUD */}
+              <div className="glass-panel p-4 flex flex-col sm:flex-row gap-4 items-center justify-between border-neon-cyan/30 bg-black/50">
                 <div className="w-full sm:w-2/3">
                   <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    placeholder="Search tasks..."
+                    placeholder="Search Database..."
                   />
                 </div>
                 <div className="w-full sm:w-auto">
@@ -294,35 +281,43 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Tasks List */}
+              {/* Tasks Matrix */}
               <div className="space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <h2 className="text-[10px] font-robot text-neon-cyan uppercase tracking-[0.3em]">Neural_Tasks_Pool</h2>
+                  <div className="h-px bg-neon-cyan/20 flex-grow mx-4"></div>
+                  <span className="text-[10px] font-robot text-neon-cyan/60">{tasks.length} ENTRIES</span>
+                </div>
+
                 {tasksApi.loading ? (
                   Array.from({ length: 3 }).map((_, index) => (
                     <TaskSkeleton key={`skeleton-${index}`} />
                   ))
                 ) : tasks.length === 0 ? (
-                  <div className="glass-panel p-12 text-center">
-                    <div className="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  <div className="glass-panel p-16 text-center border-dashed border-neon-cyan/20 bg-black/40">
+                    <div className="w-24 h-24 border border-neon-cyan/30 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-neon-cyan/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-medium text-gray-800 mb-2">No tasks found</h3>
-                    <p className="text-gray-500">
+                    <h3 className="text-xl font-robot text-neon-cyan mb-2 tracking-widest uppercase">Database_Empty</h3>
+                    <p className="text-neon-cyan/40 font-robot text-xs uppercase tracking-tighter">
                       {searchQuery || statusFilter !== 'all'
-                        ? "Try adjusting your filters or search query"
-                        : "Create a new task to get started on your journey"}
+                        ? "Criteria match failed. Adjust matrix parameters."
+                        : "No data found. Inject new tasks into the neural network."}
                     </p>
                   </div>
                 ) : (
-                  tasks.map((task) => (
-                    <TaskItem
-                      key={task.id}
-                      task={task}
-                      onTaskUpdated={handleTaskUpdated}
-                      onTaskDeleted={handleTaskDeleted}
-                    />
-                  ))
+                  <div className="grid grid-cols-1 gap-4">
+                    {tasks.map((task) => (
+                      <TaskItem
+                        key={task.id}
+                        task={task}
+                        onTaskUpdated={handleTaskUpdated}
+                        onTaskDeleted={handleTaskDeleted}
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

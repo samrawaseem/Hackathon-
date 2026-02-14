@@ -56,22 +56,22 @@ export function TagInput({ value, onChange, availableTags = [], disabled = false
 
   return (
     <div className="relative">
-      <div className={`input-luxury flex flex-wrap gap-2 min-h-[48px] items-center ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}>
+      <div className={`input-cyber flex flex-wrap gap-2 min-h-[48px] items-center border-neon-cyan/20 ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}>
         {value.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-gradient-to-r from-primary-100 to-secondary-100 text-primary-800 border border-primary-200 shadow-sm"
+            className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm text-[10px] font-robot font-bold bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 shadow-[0_0_8px_rgba(0,243,255,0.2)] uppercase tracking-wider"
           >
             {tag}
             <button
               type="button"
               onClick={() => removeTag(tag)}
               disabled={disabled}
-              className="hover:text-error-600 disabled:opacity-50 transition-colors ml-1"
-              aria-label={`Remove ${tag} tag`}
+              className="hover:text-neon-magenta disabled:opacity-50 transition-colors ml-1"
+              aria-label={`Purge ${tag} tag`}
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </span>
@@ -83,17 +83,17 @@ export function TagInput({ value, onChange, availableTags = [], disabled = false
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={disabled}
-          placeholder={value.length === 0 ? "Add tags..." : ""}
-          className="flex-1 min-w-[100px] outline-none bg-transparent text-sm placeholder-gray-400"
+          placeholder={value.length === 0 ? "ADD_CLASSIFICATION..." : ""}
+          className="flex-1 min-w-[120px] outline-none bg-transparent font-robot text-xs text-white placeholder-neon-cyan/30 uppercase tracking-widest"
         />
       </div>
       {suggestions.length > 0 && (
-        <ul className="absolute z-20 w-full mt-2 bg-white/90 backdrop-blur-md border border-gray-100 rounded-xl shadow-xl max-h-40 overflow-y-auto overflow-hidden">
+        <ul className="absolute z-20 w-full mt-2 glass-panel bg-black/90 border-neon-cyan/40 shadow-[0_0_20px_rgba(0,243,255,0.2)] max-h-40 overflow-y-auto">
           {suggestions.map((suggestion) => (
             <li
               key={suggestion}
               onClick={() => addTag(suggestion)}
-              className="px-4 py-2.5 hover:bg-primary-50 cursor-pointer text-sm text-gray-700 hover:text-primary-700 transition-colors"
+              className="px-4 py-2 hover:bg-neon-cyan/10 cursor-pointer font-robot text-[10px] text-neon-cyan/60 hover:text-neon-cyan transition-colors uppercase tracking-widest"
             >
               {suggestion}
             </li>

@@ -21,30 +21,30 @@ export function SortControls({
 }: SortControlsProps) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm font-medium text-gray-700">Sort by:</span>
-      
+      <span className="text-[10px] font-robot text-neon-cyan/40 uppercase tracking-widest">Sort_By:</span>
+
       <select
         value={sortBy}
         onChange={(e) => onSortByChange(e.target.value)}
-        className="text-sm rounded border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        className="input-cyber py-1 px-3 text-xs w-auto border-neon-cyan/20 cursor-pointer"
       >
-        <option value="created_at">Date Created</option>
-        <option value="priority">Priority</option>
-        <option value="title">Title (A-Z)</option>
+        <option value="created_at" className="bg-black">ARCHIVE_DATE</option>
+        <option value="priority" className="bg-black">PRIORITY_RANK</option>
+        <option value="title" className="bg-black">COMMAND_NAME</option>
       </select>
 
       <button
         onClick={() => onSortOrderChange(sortOrder === 'asc' ? 'desc' : 'asc')}
-        className="p-1.5 rounded hover:bg-gray-100 transition-colors"
+        className="p-1.5 border border-neon-cyan/20 hover:border-neon-cyan text-neon-cyan/60 hover:text-neon-cyan transition-all"
         aria-label={sortOrder === 'asc' ? 'Sort descending' : 'Sort ascending'}
         title={sortOrder === 'asc' ? 'Sort descending' : 'Sort ascending'}
       >
         {sortOrder === 'asc' ? (
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
           </svg>
         ) : (
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
           </svg>
         )}

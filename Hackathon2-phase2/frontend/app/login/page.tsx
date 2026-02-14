@@ -100,33 +100,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-300/20 blur-3xl"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-300/20 blur-3xl"></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center p-4 sm:px-6 lg:px-8 relative overflow-hidden backdrop-blur-sm">
+      <div className="max-w-md w-full glass-panel p-8 sm:p-10 border-neon-cyan/30 shadow-[0_0_50px_rgba(0,243,255,0.1)] relative z-10">
+        <div className="hud-corner top-0 left-0 border-r-0 border-b-0"></div>
+        <div className="hud-corner top-0 right-0 border-l-0 border-b-0"></div>
+        <div className="hud-corner bottom-0 left-0 border-r-0 border-t-0"></div>
+        <div className="hud-corner bottom-0 right-0 border-l-0 border-t-0"></div>
 
-      <div className="max-w-md w-full glass-panel p-8 sm:p-10 transform transition-all hover:scale-[1.01] duration-500">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gradient mb-2">
-            {isLogin ? 'Welcome Back' : 'Join the Voyage'}
+          <div className="inline-block w-16 h-1 bg-neon-cyan mb-6 shadow-[0_0_10px_rgba(0,243,255,0.8)]"></div>
+          <h2 className="text-3xl font-robot font-bold text-gradient-neon mb-4 tracking-tighter uppercase">
+            {isLogin ? 'Access_Port' : 'Initialize_Unit'}
           </h2>
-          <p className="text-gray-600">
-            {isLogin ? 'Sign in to access your tasks' : 'Start your productivity journey'}
+          <p className="text-[10px] font-robot text-neon-cyan/60 uppercase tracking-[0.2em]">
+            {isLogin ? 'Verifying neural credentials...' : 'Calibrating new system identity...'}
           </p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-error-50 border border-error-100 text-error-600 rounded-xl text-sm font-medium animate-pulse">
-            {error}
+          <div className="mb-8 p-4 bg-neon-magenta/10 border border-neon-magenta text-neon-magenta text-[10px] font-robot uppercase tracking-widest animate-pulse">
+            System_Error: {error}
           </div>
         )}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-2 ml-1">
-              Email address
+          <div className="space-y-2">
+            <label htmlFor="email-address" className="block text-[10px] font-robot text-neon-cyan/40 uppercase tracking-widest ml-1">
+              Neural_ID (Email)
             </label>
             <input
               id="email-address"
@@ -136,14 +136,14 @@ export default function LoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input-luxury"
-              placeholder="Enter your email"
+              className="input-cyber"
+              placeholder="operator@system.io"
             />
           </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2 ml-1">
-              Password
+          <div className="space-y-2">
+            <label htmlFor="password" className="block text-[10px] font-robot text-neon-cyan/40 uppercase tracking-widest ml-1">
+              Access_Key (Password)
             </label>
             <input
               id="password"
@@ -153,15 +153,15 @@ export default function LoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input-luxury"
-              placeholder="Enter your password"
+              className="input-cyber"
+              placeholder="••••••••••••"
             />
           </div>
 
           {!isLogin && (
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 ml-1">
-                Full name
+            <div className="space-y-2">
+              <label htmlFor="name" className="block text-[10px] font-robot text-neon-cyan/40 uppercase tracking-widest ml-1">
+                Entity_Designation (Name)
               </label>
               <input
                 id="name"
@@ -170,16 +170,16 @@ export default function LoginPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="input-luxury"
-                placeholder="Enter your full name"
+                className="input-cyber"
+                placeholder="Unit-772"
               />
             </div>
           )}
 
           {!isLogin && (
-            <div>
-              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2 ml-1">
-                Confirm Password
+            <div className="space-y-2">
+              <label htmlFor="confirm-password" className="block text-[10px] font-robot text-neon-cyan/40 uppercase tracking-widest ml-1">
+                Confirm_Access_Key
               </label>
               <input
                 id="confirm-password"
@@ -189,45 +189,45 @@ export default function LoginPage() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="input-luxury"
-                placeholder="Confirm your password"
+                className="input-cyber"
+                placeholder="••••••••••••"
               />
             </div>
           )}
 
-          <div className="pt-2">
+          <div className="pt-4">
             <button
               type="submit"
               disabled={loading}
-              className={`btn-luxury w-full flex justify-center items-center ${loading ? 'opacity-70 cursor-wait' : ''}`}
+              className={`btn-cyan w-full flex justify-center items-center ${loading ? 'opacity-50' : ''}`}
             >
               {loading ? (
-                <span className="inline-block animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></span>
+                <div className="w-5 h-5 border-2 border-black border-t-transparent animate-spin mr-3"></div>
               ) : null}
-              {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
+              {loading ? 'Processing...' : (isLogin ? 'Enter_Matrix' : 'Register_Unit')}
             </button>
           </div>
         </form>
 
-        <div className="mt-8 text-center space-y-4">
+        <div className="mt-10 text-center space-y-6">
           <button
             onClick={() => {
               setIsLogin(!isLogin);
               setError('');
             }}
-            className="text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+            className="text-[10px] font-robot text-neon-cyan/60 hover:text-neon-cyan transition-colors uppercase tracking-[0.2em]"
           >
             {isLogin
-              ? "New here? Create an account"
-              : "Already have an account? Sign in"}
+              ? "No Designation? Initialize_Unit"
+              : "Identity_Confirmed? Access_Port"}
           </button>
 
-          <div className="block">
-            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700 transition-colors inline-flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          <div className="block pt-2">
+            <Link href="/" className="text-[10px] font-robot text-neon-magenta/60 hover:text-neon-magenta transition-colors inline-flex items-center uppercase tracking-widest">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              Back to home
+              Return_To_Node
             </Link>
           </div>
         </div>

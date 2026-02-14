@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Todo App",
-  description: "Secure Todo application with Better Auth",
+  title: "RoboTodo | Task Interface",
+  description: "Advanced Task Management with Robotic Neural Interface",
 };
 
 export default function RootLayout({
@@ -25,9 +25,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}
+        className={`${inter.variable} ${orbitron.variable} antialiased`}
+        style={{
+          backgroundImage: 'url("/robotics_bg.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
       >
-        {children}
+        <div className="min-h-screen bg-black/60 relative">
+          {children}
+        </div>
       </body>
     </html>
   );

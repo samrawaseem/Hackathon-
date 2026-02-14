@@ -50,10 +50,10 @@ export function SearchBar({
           value={localValue}
           onChange={(e) => setLocalValue(e.target.value)}
           placeholder={placeholder}
-          className="input-luxury pl-12 pr-10"
+          className="input-cyber pl-12 pr-10 border-neon-cyan/20 focus:border-neon-cyan"
         />
         <svg
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neon-cyan/40 group-focus-within:text-neon-cyan transition-colors"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ export function SearchBar({
         {localValue && (
           <button
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-error-500 transition-colors p-1 rounded-full hover:bg-error-50"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neon-magenta/40 hover:text-neon-magenta transition-colors p-1"
             aria-label="Clear search"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
